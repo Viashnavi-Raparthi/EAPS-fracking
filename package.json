@@ -1,0 +1,24 @@
+{
+  "name": "eaps-fracking",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "assets": "assetpack -c .assetpack.js"
+  },
+  "devDependencies": {
+    "@assetpack/cli": "^0.8.0",
+    "@assetpack/core": "^0.8.0",
+    "@assetpack/plugin-compress": "^0.8.0",
+    "@assetpack/plugin-manifest": "^0.8.0",
+    "@assetpack/plugin-texture-packer": "^0.8.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "pixi.js": "^8.0.4"
+  }
+}
