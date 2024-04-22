@@ -61,12 +61,11 @@ async function fetchAssetsManifest(url: string) {
 
 /** Initialise and start background loading of all assets */
 export async function initAssets() {
-    console.log("first")
     // Load assets manifest
-    assetsManifest = await fetchAssetsManifest('assets/assets-manifest.json');
+    assetsManifest = await fetchAssetsManifest('/assets/assets-manifest.json');
 
     // Init PixiJS assets with this asset manifest
-    await Assets.init({ manifest: assetsManifest, basePath: 'assets' });
+    await Assets.init({ manifest: assetsManifest, basePath: '/assets' });
 
     // Load assets for the load screen
     await loadBundles('images');
@@ -76,6 +75,4 @@ export async function initAssets() {
 
     // Start up background loading of all bundles
     Assets.backgroundLoadBundle(allBundles);
-
-    console.log("here")
 }

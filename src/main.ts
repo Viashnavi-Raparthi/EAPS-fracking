@@ -21,3 +21,13 @@ await initAssets();
 const bunny = PIXI.Sprite.from('home-page');
 
 app.stage.addChild(bunny);
+
+// // Load the bunny texture.
+// const texture = await PIXI.Assets.load('https://pixijs.com/assets/bunny.png');
+
+// // Create a new Sprite from an image path
+// const bunny = new PIXI.Sprite(texture);
+
+// app.stage.addChild(bunny);
+
+// console.log("hi");
