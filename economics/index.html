@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics</title>
+    <style>
+        /* Add your CSS styles here */
+        .speech-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            height: 100vh;
+            padding: 20px;
+        }
+        .speech-bubble {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px;
+            max-width: 70%;
+        }
+        .user-speech-bubble {
+            align-self: flex-start;
+        }
+    </style>
+</head>
+<body>
+    <div class="speech-container">
+        <div id="speech-column"></div>
+        <div id="image-column">
+            <!-- Images for user to click -->
+            <img src="image1.jpg" alt="Image 1" class="clickable-image" data-speech-index="0">
+            <img src="image2.jpg" alt="Image 2" class="clickable-image" data-speech-index="1">
+            <!-- Add more images as needed -->
+        </div>
+    </div>
+
+    <script src="/src/economics.js"></script>
+</body>
+</html>
