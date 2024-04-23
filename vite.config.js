@@ -11,6 +11,7 @@ export default defineConfig({
             input: {
                 main: resolve(__dirname, 'index.html'),
                 overview: resolve(__dirname, 'overview/index.html'),
+                history: resolve(__dirname, 'history/index.html'),
                 process: resolve(__dirname, 'process/index.html')
             }
         }

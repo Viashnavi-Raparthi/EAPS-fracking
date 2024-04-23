@@ -83,11 +83,17 @@ body {
     color: #333;
     padding: 10px 15px;
     border-radius: 10px;
-    max-width: 250px;
     margin-bottom: 20px;
-    margin-right: 20px;
     cursor: pointer;
     position: relative;
+    font-size: 24px;
+    font-family: "Patrick Hand", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.user-input-bubble p {
+    margin: 0;
 }
 
 .user-input-bubble::before {

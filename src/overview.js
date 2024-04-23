@@ -5,7 +5,7 @@ const colonelSpeeches = [
     "It's a special technique for energy production, basically invented by your grandfather. It's used to extract oil and natural gas from underground by injecting pressurized fluid mixtures into rock. That creates fractures releasing the trapped oil and gas.",
     "Fracking has changed the energy landscape, globally promising energy security. It's reduced reliance on foreign oil and boosted the US economy. And it unlocks previously unusable reservoirs of oil and gas. Among other things.",
     "Sure, there's been some increasing debate against the process. People keep claiming it's damaging the environment and society. They want to add more regulations around fracking. But your grandfather didn't get rich by listening to those petty complaints.",
-    "Placeholder text."
+    "Great, let's start with some history."
 ];
 
 const userSpeeches = [
@@ -14,7 +14,7 @@ const userSpeeches = [
     "What's hydraulic fracking?",
     "What's so special about fracking?",
     "Sounds dangerous, is it safe?",
-    "Ok let's get started."
+    "Ok, let's get started."
 ];
 
 // const speechTree = {
