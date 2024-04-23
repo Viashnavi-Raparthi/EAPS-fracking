@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    font-family: "Patrick Hand", cursive;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #0999bd;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end; /* Align speech container to the right */
+    align-items: flex-start; /* Align speech container to the bottom */
+    height: 100vh;
+}
+
+.image-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center images vertically */
+    align-items: center; /* Center images horizontally */
+    width: 40%; /* Adjust the width of the image column */
+}
+
+.clickable-image {
+    margin-bottom: 20px; /* Add space between images */
+}
+
+.speech-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align speech column to the left */
+    height: 100vh;
+    width: 60%; /* Adjust the width of the speech container */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Add scrollbar if content exceeds height */
+}
+
+.speech-bubble {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-family: "Delius", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.user-speech-bubble {
+    background-color: green;
+    align-self: flex-end;
+    font-size: 24px;
+    font-family: "Patrick Hand", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Add more styles as needed */

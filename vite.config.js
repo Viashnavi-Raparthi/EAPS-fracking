@@ -12,7 +12,8 @@ export default defineConfig({
                 main: resolve(__dirname, 'index.html'),
                 overview: resolve(__dirname, 'overview/index.html'),
                 history: resolve(__dirname, 'history/index.html'),
-                process: resolve(__dirname, 'process/index.html')
+                process: resolve(__dirname, 'process/index.html'),
+                economics: resolve(__dirname, 'economics/index.html')
             }
         }
     },
