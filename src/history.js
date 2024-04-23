@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
     generateVerticalLines(); // Initial generation
 
     const markers = document.querySelectorAll('.marker');
+    const previewSection = document.querySelector('.preview-section');
+    const eventHeader = document.querySelector('.event-header');
+    const eventImage = document.querySelector('.event-image');
+    const eventDescription = document.querySelector('.event-description');
 
     function updateMarkerPositions() {
         markers.forEach(marker => {
@@ -41,22 +45,29 @@ document.addEventListener('DOMContentLoaded', function() {
     markers.forEach(marker => {
         marker.addEventListener('click', function() {
             const year = this.dataset.year;
+            const eventName = this.querySelector('.event-name').textContent;
             const description = this.dataset.description;
-            const eventDetailsContainer = document.querySelector('.event-details-container');
-            const eventDetails = eventDetailsContainer.querySelector('.event-details');
-            const eventDetailsImg = eventDetails.querySelector('img');
-            const eventDetailsDescription = eventDetails.querySelector('.description');
 
-            eventDetailsImg.src = `event_${year}.jpg`; // Change the image source based on the year
-            eventDetailsDescription.textContent = description;
+            // Add animate-out class to slide out the existing event details
+            previewSection.classList.add('animate-out');
 
-            eventDetailsContainer.style.top = '20px'; // Show event details container
+            // After animation, update event information and slide in the new event details
+            setTimeout(() => {
+                eventHeader.textContent = eventName;
+                eventImage.src = `event_${year}.jpg`;
+                eventDescription.textContent = description;
+
+                // Add animate-in class to slide in the new event details
+                previewSection.classList.remove('animate-out');
+                previewSection.classList.add('animate-in');
+
+                // Remove animate-in class after animation completes
+                setTimeout(() => {
+                    previewSection.classList.remove('animate-in');
+                }, 300); // Use the same duration as the CSS transition (0.3s)
+
+            }, 300); // Use the same duration as the CSS transition (0.3s)
+
         });
-    });
-
-    const closeBtn = document.querySelector('.close-btn');
-    closeBtn.addEventListener('click', function() {
-        const eventDetailsContainer = document.querySelector('.event-details-container');
-        eventDetailsContainer.style.top = '-200px'; // Hide event details container
     });
 });
