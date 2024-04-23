@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // After animation, update event information and slide in the new event details
             setTimeout(() => {
                 eventHeader.textContent = eventName;
-                eventImage.src = `event_${year}.jpg`;
+                eventImage.src = `/raw-assets/images{m}{tps}/event_${year}.jpg`;
                 eventDescription.textContent = description;
 
                 // Add animate-in class to slide in the new event details
