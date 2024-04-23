@@ -5,6 +5,12 @@ body {
     padding: 0;
 }
 
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .preview-section {
     position: relative;
     text-align: center;
@@ -12,6 +18,10 @@ body {
     background-color: #f9f9f9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease; /* Transition for transform property only */
+}
+.preview-section img {
+    max-height: 50vh;
+    max-width: 100%;
 }
 
 .animate-out {
@@ -24,7 +34,7 @@ body {
 
 .timeline-container {
     position: relative;
-    margin: 50px; /* Adjust the space between preview section and timeline */
+    margin: auto 50px 80px;
 }
 
 .timeline {
