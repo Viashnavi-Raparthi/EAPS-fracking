@@ -105,10 +105,12 @@ body, html {
     cursor: pointer;
     transition: opacity 0.2s ease-in, top 0.2s linear; /* Add a smooth transition for the animation */
     transform: translate(-50%, -50%);
+    z-index: 10;
 }
 
 .cash {
-    max-width: 10%;
-    max-height: 10%;
+    max-width: 5%;
+    max-height: 5%;
     position: absolute;
+    transform: translate(-50%, -50%);
 }

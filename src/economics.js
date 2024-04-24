@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var dialogueContainer = document.getElementById('dialogue-container');
     const donovanSpeech = {
         "intro": "Alright, now that you know how the wells are built, let's start constructing new ones around the US.",
-        "firstWell": "Nice, place holder text here"
+        "firstWell": "Perfect. We should start making a profit from that well. When the money flows in, just hover over it to collect."
     }
 
     // Array of coordinates for building buttons
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentMoney -= 100;
                 moneyCounter.textContent = 'Money: $' + currentMoney; // Update money counter text
 
-                // Spawn cash image every 10 seconds
+                // Spawn cash image every X seconds
                 setInterval(function() {
                     spawnCash(coord);
                 }, 5000);
@@ -86,12 +86,12 @@ document.addEventListener('DOMContentLoaded', function() {
         var cash = document.createElement('img');
         cash.src = '/raw-assets/images{m}{tps}/cash.webp';
         cash.classList.add('cash');
-        cash.style.left = coord.x + '%';
-        cash.style.top = coord.y + '%';
+        cash.style.left = coord.x + (Math.random() * 8) - 4 + '%';
+        cash.style.top = coord.y + (Math.random() * 8) - 4 + '%';
         cash.addEventListener('mouseover', function() {
             // Animate cash when hovered over
-            this.style.transition = 'top 1s, opacity 1s';
-            this.style.top = '10%';
+            this.style.transition = 'top 0.5s, opacity 0.5s';
+            this.style.top = coord.y - 10 + '%';
             this.style.opacity = 0;
             currentMoney += 100; // Increase money by $100
             moneyCounter.textContent = 'Money: $' + currentMoney;
