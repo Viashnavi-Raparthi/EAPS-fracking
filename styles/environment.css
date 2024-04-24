@@ -1,0 +1,138 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+#ceiling {
+    background-color: white;
+    height: 10vh;
+    width: 100%;
+}
+
+#wall {
+    background-color: #a7a3a0;
+    height: 80vh;
+    width: 100%;
+}
+
+#floor {
+    background-color: #D2B48C; /* light brown color */
+    height: 10vh;
+    width: 100%;
+}
+
+#dialogue-column {
+    position: relative;
+    height: 40%;
+    width: 100%;
+    overflow-y: hidden;
+}
+.dialogue {
+    position: absolute;
+    background-color: #950e18;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 10px;
+    width: 70%;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-family: "Delius", cursive;
+    font-weight: 400;
+    font-style: normal;
+    top: 100%;
+    opacity: 0; /* Initially transparent */
+    transition: top 0.5s ease, opacity 0.5s ease; /* Transition for slide up and fade in animation */
+}
+.user-bubble {
+    right: 0;
+    background-color: #006400;
+    align-self: flex-end;
+    font-size: 20px;
+    font-family: "Patrick Hand", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#door-column {
+    position: absolute;
+    left: 5%;
+    bottom: 10%;
+    height: 80vh;
+    width: 30vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#door {
+    position: relative;
+    background-color: black;
+    height: 70%;
+    border: 10px solid #d07522; /* Add border with specified color */
+    border-bottom: 0;
+    box-sizing: border-box; /* Ensure border size is included in the element's total width and height */
+}
+#door-image {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    transition: all 0.5s ease-in-out; /* Smooth transition for door opening animation */
+    cursor: pointer;
+    z-index: 150;
+}
+
+#door-image.open {
+    transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(-105deg); /* Rotate door image to simulate opening */
+}
+
+#person {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: none; /* Initially hidden */
+}
+
+#respond-button {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 70%;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 100;
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-family: "Patrick Hand", cursive;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+}
+#respond-button.unactive {
+    background-color: #797979;
+    cursor: default;
+}
+
+#person-image {
+    position: absolute;
+    bottom: 0px;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#window-column {
+    position: absolute;
+    right: 5%;
+    bottom: 10vh;
+    height: 80vh;
+    width: calc(85vw - 30vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

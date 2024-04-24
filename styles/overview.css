@@ -70,7 +70,7 @@ body {
 }
 
 .user-speech-bubble {
-    background-color: green;
+    background-color: #006400;
     align-self: flex-end;
     font-size: 24px;
     font-family: "Patrick Hand", cursive;

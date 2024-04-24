@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Array of coordinates for building buttons
     var buttonCoordinates = [
-        { x: 50, y: 50 },
-        { x: 20, y: 80 },
-        { x: 75, y: 20 }
+        { x: 50, y: 70 },
+        { x: 20, y: 50 },
+        { x: 75, y: 40 }
         // Add more coordinates as needed
     ];
 
