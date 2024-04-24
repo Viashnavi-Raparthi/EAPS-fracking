@@ -85,9 +85,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Remove animate-in class after animation completes
                 setTimeout(() => {
                     previewSection.classList.remove('animate-in');
-                }, 300); // Use the same duration as the CSS transition (0.3s)
+                }, 600); // Use the same duration as the CSS transition (0.5s)
 
-            }, 300); // Use the same duration as the CSS transition (0.3s)
+            }, 600); // Use the same duration as the CSS transition (0.5s)
 
         });
     });
