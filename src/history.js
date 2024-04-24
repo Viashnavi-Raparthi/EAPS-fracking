@@ -9,7 +9,6 @@ const colonelSpeeches = [
     "Yup, look at you picking up on this!",
     "Well it took a lot of other technology but with horizontal drilling and this fracking idea, we were able to have great sources of domestic energy",
     "Good? Son, it was great! The US unlocked so many different reservoirs across the country. It even helped decrease the amount of CO2 in the air because we weren't going through as much coal"
-
 ];
 
 const userSpeeches = [

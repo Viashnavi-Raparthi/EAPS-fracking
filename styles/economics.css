@@ -1,63 +1,114 @@
-body {
+body, html {
     margin: 0;
-    font-family: "Patrick Hand", cursive;
-    font-weight: 400;
-    font-style: normal;
-    background-color: #0999bd;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
-.container {
+#container {
     position: relative;
     display: flex;
-    justify-content: flex-end; /* Align speech container to the right */
-    align-items: flex-start; /* Align speech container to the bottom */
-    height: 100vh;
-}
-
-.image-column {
-    display: flex;
     flex-direction: column;
-    justify-content: center; /* Center images vertically */
-    align-items: center; /* Center images horizontally */
-    width: 40%; /* Adjust the width of the image column */
 }
 
-.clickable-image {
-    margin-bottom: 20px; /* Add space between images */
-}
-
-.speech-container {
+#header-container {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align speech column to the left */
-    height: 100vh;
-    width: 60%; /* Adjust the width of the speech container */
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Space items horizontally */
+    padding: 10px; /* Add padding for spacing */
+}
+
+#profile-container {
+    margin: 10px;
+}
+
+#profile-picture {
+    width: 100px;
+    height: 100px;
+}
+
+#dialogue-container {
+    position: relative;
+    flex: 1;
+    height: 100px;
+}
+
+#money-counter {
+    margin: 10px; /* Add margin to separate from other elements */
+}
+
+.dialogue {
+    position: absolute;
+    top: -100px; /* Initially above the screen */
+    left: 0;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* Add scrollbar if content exceeds height */
-}
-
-.speech-bubble {
     background-color: #007bff;
     color: #fff;
-    padding: 10px 15px;
     border-radius: 10px;
-    margin-bottom: 20px;
-    font-size: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: top 0.5s ease, opacity 0.5s ease; /* Transition for sliding in and fading in */
+    opacity: 0; /* Initially invisible */
     font-family: "Delius", cursive;
     font-weight: 400;
     font-style: normal;
 }
 
-.user-speech-bubble {
-    background-color: green;
-    align-self: flex-end;
-    font-size: 24px;
-    font-family: "Patrick Hand", cursive;
-    font-weight: 400;
-    font-style: normal;
+.dialogue.active {
+    top: 0; /* Slide in from top */
+    opacity: 1; /* Fade in */
 }
 
-/* Add more styles as needed */
+#map-container {
+    position: relative;
+}
+
+#us-map {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#buttons-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.build-button {
+    position: absolute;
+    background-color: yellow;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    transform: translate(-50%, -50%);
+}
+
+.build-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+#buildings-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.building {
+    max-width: 10%;
+    max-height: 10%;
+    position: absolute;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in, top 0.2s linear; /* Add a smooth transition for the animation */
+    transform: translate(-50%, -50%);
+}
+
+.cash {
+    max-width: 10%;
+    max-height: 10%;
+    position: absolute;
+}
