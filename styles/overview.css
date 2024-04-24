@@ -3,7 +3,15 @@ body {
     font-family: "Patrick Hand", cursive;
     font-weight: 400;
     font-style: normal;
-    background-color: #0999bd;
+    background-color: #3f91a5;
+}
+
+#floor {
+    position: absolute;
+    bottom: 0;
+    background-color: #D2B48C; /* light brown color */
+    height: 20vh;
+    width: 100%;
 }
 
 .bubblegum-sans-regular {
@@ -18,20 +26,107 @@ body {
     justify-content: flex-end; /* Align speech container to the right */
     align-items: flex-start; /* Align speech container to the bottom */
     height: 100vh;
+    pointer-events: none; 
 }
 
 .door-container {
-    display: flex;
-    justify-content: center; /* Center the image horizontally */
-    align-items: center; /* Center the image vertically */
-    width: 60%; /* Adjust the width of the door container */
+    position: absolute;
     height: 100%;
+    min-width: 60%;
 }
 
-.door-image {
-    max-width: 100%;
-    height: auto;
+#door-image {
+    position: absolute;
+    height: 80vh;
+    cursor: pointer;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
 }
+
+#donovan-image {
+    position: absolute;
+    height: 55vh;
+    bottom: 15%;
+    left: 42%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+.knock {
+    position: absolute;
+    bottom: 70vh;
+    left: 50%;
+    font-size: 30px;
+    font-family: "Bungee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    opacity: 0; /* Initially hidden */
+    animation: knockAnimation 3s infinite; /* Apply animation */
+}
+.knock1 {
+    animation-delay: 0s;
+}
+.knock2 {
+    animation: knockAnimation2 3s infinite; /* Apply animation */
+    animation-delay: 0.5s;
+}
+.knock3 {
+    animation: knockAnimation3 3s infinite; /* Apply animation */
+    animation-delay: 1s;
+}
+
+@keyframes knockAnimation {
+    0% {
+        opacity: 0; /* Start with opacity 0 */
+        transform: translate(0, 0); /* Start from top right corner */
+    }
+    10% {
+        opacity: 1; /* Fade in */
+    }
+    40% {
+        opacity: 1; /* Stay visible */
+    }
+    50% {
+        opacity: 0; /* Fade out */
+        transform: translate(100px, -100px); /* Move away from the door */
+    }
+}
+
+@keyframes knockAnimation2 {
+    0% {
+        opacity: 0; /* Start with opacity 0 */
+        transform: translate(0, 0); /* Start from top right corner */
+    }
+    10% {
+        opacity: 1; /* Fade in */
+    }
+    40% {
+        opacity: 1; /* Stay visible */
+    }
+    50% {
+        opacity: 0; /* Fade out */
+        transform: translate(60px, -150px); /* Move away from the door */
+    }
+}
+@keyframes knockAnimation3 {
+    0% {
+        opacity: 0; /* Start with opacity 0 */
+        transform: translate(0, 0); /* Start from top right corner */
+    }
+    10% {
+        opacity: 1; /* Fade in */
+    }
+    40% {
+        opacity: 1; /* Stay visible */
+    }
+    50% {
+        opacity: 0; /* Fade out */
+        transform: translate(130px, -90px); /* Move away from the door */
+    }
+}
+
 
 .speech-container {
     display: flex;
@@ -52,6 +147,7 @@ body {
     flex-direction: column;
     max-height: 90%;
     overflow-y: auto;
+    pointer-events: auto;
 }
 
 
@@ -90,6 +186,8 @@ body {
     font-family: "Patrick Hand", cursive;
     font-weight: 400;
     font-style: normal;
+    pointer-events: auto; 
+    display: none;
 }
 
 .user-input-bubble p {
@@ -107,4 +205,19 @@ body {
     border-top-color: #f0f0f0;
     border-bottom: 0;
     margin-left: -10px;
+}
+
+#continue-button {
+    display: none;
+    background-color: #ffc107;
+    padding: 5px 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-decoration: none; /* Remove default link underline */
+    font-family: 'Koulen', sans-serif;
+    color: white; /* Change link color */
+    text-decoration: none; /* Remove default link underline */
+    pointer-events: auto;
+    font-size: 24px;
+    letter-spacing: 2px;
 }

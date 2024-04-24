@@ -23,8 +23,14 @@ const userSpeeches = [
 
 const speechColumn = document.getElementById('speech-column');
 const userInputBubble = document.getElementById('user-input');
+const continueButton = document.getElementById('continue-button');
+const doorImage = document.getElementById('door-image');
+const donovanImage = document.getElementById('donovan-image');
 
-let currentSpeechIndex = 0;
+const TEXT_SPEED = 30;
+const TEXT_DELAY = 1000;
+
+let currentSpeechIndex = -1;
 
 function displaySpeech(speechText, isColonelDonovan = true) {
     const speechBubble = document.createElement('div');
@@ -45,7 +51,15 @@ function displaySpeech(speechText, isColonelDonovan = true) {
         if (index < speechText.length) {
             textContainer.textContent += speechText[index];
             index++;
-            setTimeout(revealText, 50); // Adjust the delay between characters (in milliseconds)
+            setTimeout(revealText, TEXT_SPEED); // Adjust the delay between characters (in milliseconds)
+        } else if (isColonelDonovan) {
+            setTimeout(function() {
+                if (currentSpeechIndex < userSpeeches.length) {
+                    userInputBubble.style.display = "block";
+                } else {
+                    continueButton.style.display = "block";
+                }
+            }, TEXT_DELAY);
         }
     };
 
@@ -59,15 +73,31 @@ function colonelResponse() {
 
 function displayUserQuestion() {
     // Here you can handle user input, for now, let's just display a predefined question
+    userInputBubble.style.display = "none";
     const userQuestion = userSpeeches[currentSpeechIndex];
     displaySpeech(userQuestion, false);
     currentSpeechIndex++;
 
     // Trigger Colonel Donovan's response after the user's speech bubble is fully typed out
-    setTimeout(colonelResponse, userQuestion.length * 50 + 1000); // Add a delay of 1 second after user's speech bubble is fully typed out
+    setTimeout(colonelResponse, userQuestion.length * TEXT_SPEED + TEXT_DELAY); // Add a delay of 1 second after user's speech bubble is fully typed out
 }
 
 userInputBubble.addEventListener('click', displayUserQuestion);
 
-// Initial introduction by Colonel Donovan
-colonelResponse();
+doorImage.addEventListener('click', function() {
+    if (currentSpeechIndex != -1) {
+        return;
+    }
+    doorImage.src = "/raw-assets/images{m}{tps}/open-door.png"
+    donovanImage.style.display = "block";
+    currentSpeechIndex++;
+    disableKnocks();
+    colonelResponse();
+});
+
+function disableKnocks() {
+    var knocks = document.querySelectorAll('.knock');
+    knocks.forEach(function(knock) {
+        knock.style.display = 'none';
+    });
+}

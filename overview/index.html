@@ -7,25 +7,28 @@
     <link rel="stylesheet" href="/styles/overview.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Delius&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Delius&family=Patrick+Hand&family=Bungee&family=Koulen&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="floor"></div>
+    <div class="door-container">
+        <img src="/raw-assets/images{m}{tps}/closed-door.png" alt="Door" id="door-image">
+        <img src="/raw-assets/images{m}{tps}/donovan.png" id="donovan-image">
+        <div class="knock knock1">Knock</div>
+        <div class="knock knock2">Knock</div>
+        <div class="knock knock3">Knock</div>
+    </div>
+
     <div class="container">
-        <div class="door-container">
-            <img src="/raw-assets/images{m}{tps}/closed-door.png" alt="Door" class="door-image">
-        </div>
         <div class="speech-container">
             <div class="speech-column" id="speech-column">
             </div>
             <div class="user-input-bubble" id="user-input">
                 <p>Click here to ask a question...</p>
             </div>
+            <a id="continue-button" href="/history/">Continue to History Page</a>
         </div>
     </div>
-
-    
-     <!-- Link to the History Page -->
-     <a href="history.html">Go to History Page</a>
 
     <script src="/src/overview.js"></script>
 </body>
