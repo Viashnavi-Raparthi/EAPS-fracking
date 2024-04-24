@@ -52,9 +52,30 @@ body {
     transform: translateY(0);
 }
 
-.timeline-container {
+#continue-button {
+    display: none;
+    background-color: #ffc107;
+    padding: 5px 20px;
+    margin: auto 20px 20px;
+    border-radius: 5px;
+    text-decoration: none; /* Remove default link underline */
+    font-family: 'Koulen', sans-serif;
+    color: white; /* Change link color */
+    text-decoration: none; /* Remove default link underline */
+    pointer-events: auto;
+    font-size: 24px;
+    letter-spacing: 2px;
+    width: 250px;
+    text-align: center;
+    align-self: center;
+}
+
+#timeline-container {
     position: relative;
-    margin: auto 50px 80px;
+    margin: 30px 50px 80px;
+}
+#timeline-container.active {
+    margin-top: auto;
 }
 
 .timeline {

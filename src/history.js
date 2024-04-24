@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const eventHeader = document.querySelector('.event-header');
     const eventImage = document.querySelector('.event-image');
     const eventDescription = document.querySelector('.event-description');
+    const continueButton = document.getElementById('continue-button');
+    const timelineContainer = document.getElementById('timeline-container')
+    const eventsClicked = [];
 
     function updateMarkerPositions() {
         markers.forEach(marker => {
@@ -53,6 +56,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const markerPosition = (year - START_DATE) / dateRange * timelineLine.clientWidth;
             marker.style.left = `${markerPosition}px`;
         });
+    }
+
+    function checkVistedEvents() {
+        allVisited = true;
+        eventsClicked.forEach(visited => {
+            if (!visited) {
+                allVisited = false;
+            }
+        });
+        if (allVisited) {
+            continueButton.style.display = "block";
+            timelineContainer.classList.remove("active");
+        }
     }
 
     updateMarkerPositions(); // Initial position update
@@ -63,11 +79,14 @@ document.addEventListener('DOMContentLoaded', function() {
         updateMarkerPositions();
     });
 
-    markers.forEach(marker => {
+    markers.forEach((marker, index) => {
+        eventsClicked.push(false);
         marker.addEventListener('click', function() {
             const year = this.dataset.year;
             const eventName = this.querySelector('.event-name').textContent;
             const description = this.dataset.description;
+
+            eventsClicked[index] = true;
 
             // Add animate-out class to slide out the existing event details
             previewSection.classList.add('animate-out');
@@ -85,10 +104,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Remove animate-in class after animation completes
                 setTimeout(() => {
                     previewSection.classList.remove('animate-in');
+                    checkVistedEvents()
                 }, 600); // Use the same duration as the CSS transition (0.5s)
 
             }, 600); // Use the same duration as the CSS transition (0.5s)
-
         });
     });
 });
