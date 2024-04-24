@@ -28,15 +28,29 @@ const respondButton = document.getElementById('respond-button');
 
 const guestDialogues = [
     "Hey! Do you have any idea how much damage you've caused?",
-    "blah blah blah",
-    "bluh bluh bluh"
+    "water poisoning",
+    "into water supply",
+    "Why don't you see for yourself?",
+    "I'm one of your geologists, blah blah weird observations",
+    "earthquakes",
+    "Let me show you.",
+    "You've destroyed our rural roads",
+    "your trucks blah blah"
 ];
 
 const userDialogues = [
   "Who are you? Damage? What are you talking about?",
-  "ho ho ho",
-  "do do do"
+  "how is this my fault",
+  "don't believe you",
+  "get out",
+  "Okay what do you mean?",
+  "??",
+  "bye",
+  "bruh",
+  "sad"
 ];
+
+const interactiveSpots = {4: ["water", "/raw-assets/images{m}{tps}/scientist.png"], 7: ["earthquake", "/raw-assets/images{m}{tps}/person.png"], 9: ["roads", "/raw-assets/images{m}{tps}/farmer.png"]}
 
 var dialogueIndex = 0;
 

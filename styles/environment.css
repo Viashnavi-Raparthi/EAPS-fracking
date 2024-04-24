@@ -67,7 +67,7 @@ body, html {
 
 #door {
     position: relative;
-    background-color: black;
+    background-color: white;
     height: 70%;
     border: 10px solid #d07522; /* Add border with specified color */
     border-bottom: 0;
