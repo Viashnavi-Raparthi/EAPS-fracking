@@ -85,6 +85,7 @@ body, html {
 
 #door-image.open {
     transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(-105deg); /* Rotate door image to simulate opening */
+    cursor: default;
 }
 
 #person {
@@ -93,7 +94,6 @@ body, html {
     left: 0;
     height: 100%;
     width: 100%;
-    display: none; /* Initially hidden */
 }
 
 #respond-button {

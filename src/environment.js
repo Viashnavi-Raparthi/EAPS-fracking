@@ -1,26 +1,17 @@
 const door = document.getElementById('door-image');
 const person = document.getElementById('person');
+const personImage = document.getElementById("person-image");
 const dialogueColumn = document.getElementById('dialogue-column');
 
+const TEXT_SPEED = 30;
+const ANIMATION_SPEED = 500;
+
 door.addEventListener('click', function() {
-    door.classList.toggle('open');
-    person.style.display = door.classList.contains('open') ? 'block' : 'none'; // Show or hide the person image
+    if (!door.classList.contains('open')) {
+        door.classList.toggle('open');
 
-    if (door.classList.contains('open')) {
         // Create a new dialogue element
-        const newDialogue = document.createElement('div');
-        newDialogue.classList.add('dialogue');
-        const newDialogueText = guestDialogues[dialogueIndex];
-        newDialogue.textContent = newDialogueText;
-
-        // Add the new dialogue to the column
-        dialogueColumn.appendChild(newDialogue);
-
-        // Animate the dialogue bubble to slide up and fade in
-        setTimeout(function() {
-            newDialogue.style.top = '10%'; // Slide up
-            newDialogue.style.opacity = 1; // Fade in
-        }, 800); // Delay to ensure the animation works properly
+        setTimeout(guestResponse, 800);
     }
 });
 
@@ -50,7 +41,7 @@ const userDialogues = [
   "sad"
 ];
 
-const interactiveSpots = {4: ["water", "/raw-assets/images{m}{tps}/scientist.png"], 7: ["earthquake", "/raw-assets/images{m}{tps}/person.png"], 9: ["roads", "/raw-assets/images{m}{tps}/farmer.png"]}
+const interactiveSpots = {4: ["water", "/raw-assets/images{m}{tps}/scientist.png"], 7: ["earthquake", "/raw-assets/images{m}{tps}/farmer.png"], 9: ["roads", "/raw-assets/images{m}{tps}/farmer.png"]}
 
 var dialogueIndex = 0;
 
@@ -61,14 +52,27 @@ respondButton.addEventListener('click', function() {
     const newDialogueText = userDialogues[dialogueIndex++];
     displayNextDialogue(newDialogueText);
 
-    setTimeout(guestResponse, newDialogueText.length * 50 + 1000);
+    if (dialogueIndex in interactiveSpots) {
+        // Onto next person, close the door
+        setTimeout(kickoutGuest, newDialogueText.length * TEXT_SPEED + 1000);
+    } else {
+        setTimeout(guestResponse, newDialogueText.length * TEXT_SPEED + 1000);
+    }
 });
 
 function guestResponse() {
     displayNextDialogue(guestDialogues[dialogueIndex], false)
 }
 
-function displayNextDialogue(dialogueText, isUser = true) {
+function kickoutGuest() {
+    door.classList.toggle('open');
+    removePreviousDialogue();
+    setTimeout(() => {
+        personImage.src = interactiveSpots[dialogueIndex][1]
+    }, ANIMATION_SPEED);
+}
+
+function removePreviousDialogue() {
     // Remove the last dialogue from the column
     const previousDialogue = dialogueColumn.firstElementChild;
     if (previousDialogue) {
@@ -76,8 +80,12 @@ function displayNextDialogue(dialogueText, isUser = true) {
         previousDialogue.style.top = '-90%'; // Slide out
         setTimeout(() => {
         previousDialogue.remove();
-        }, 500); // Delay to ensure the animation completes before removal
+        }, ANIMATION_SPEED); // Delay to ensure the animation completes before removal
     }
+}
+
+function displayNextDialogue(dialogueText, isUser = true) {
+    removePreviousDialogue();
 
     // Create a new dialogue element
     const newDialogue = document.createElement('div');
@@ -87,7 +95,9 @@ function displayNextDialogue(dialogueText, isUser = true) {
         respondButton.classList.add("unactive");
     }
     else {
-        respondButton.classList.remove('unactive');
+        setTimeout(() => {
+            respondButton.classList.remove('unactive');
+        }, ANIMATION_SPEED);
     }
     newDialogue.textContent = dialogueText;
 
