@@ -26,13 +26,17 @@ document.body.appendChild(app.canvas);
 
 await initAssets();
 
+var buildButton;
+const BUILD_BUTTON_POSITION = {x: 100, y: 180};
+var oilWell;
+const WELL_POSITION = {x: 115, y: 130};
+
+const layerColors = [0xC5F9FE, 0x8CC341, 0x89613B, 0x774B26, 0x27A8E0, 0x554741, 0x736356, 0xCDAC8D]
+  const layerHeights = [250, 10, 20, 40, 30, 60, 30, 100]
+
 setup()
 
 function setup() {
-  // Define colors for dirt and rock
-  const layerColors = [0xC5F9FE, 0x8CC341, 0x89613B, 0x774B26, 0x27A8E0, 0x554741, 0x736356, 0xCDAC8D]
-  const layerHeights = [250, 10, 20, 40, 30, 60, 30, 100]
-
   // Define the width and height of each layer
   const layerWidth = app.screen.width;
 
@@ -46,12 +50,28 @@ function setup() {
     app.stage.addChild(layer);
   }
 
-  const button = Sprite.from('build-well-button');
-  button.width = 120;
-  button.height = 40;
-  button.x = 100;
-  button.y = 180;
-  app.stage.addChild(button);
+  buildButton = Sprite.from('build-well-button');
+  buildButton.width = 120;
+  buildButton.height = 40;
+  buildButton.position = BUILD_BUTTON_POSITION;
+  buildButton.eventMode = 'static';
+  buildButton.cursor = 'pointer';
+  buildButton.on('pointerdown', buildWell);
+
+  app.stage.addChild(buildButton);
+}
+
+function buildWell() {
+  app.stage.removeChild(buildButton);
+
+  oilWell = Sprite.from('oil-well');
+  oilWell.width = 90;
+  oilWell.height = 120;
+  oilWell.position = WELL_POSITION;
+  oilWell.on('pointerdown', buildWell);
+
+  app.stage.addChild(oilWell);
+  setupDrilling();
 }
 
 function setupDrilling() {
@@ -71,7 +91,7 @@ function setupDrilling() {
   function onPointerDown(event) {
       isDrawing = true;
       lastPoint = event.data.getLocalPosition(app.stage);
-      if (lastPoint.y < TOP_OF_DIRT) {
+      if (lastPoint.y < layerHeights[0] + (HOLE_WIDTH/2)) {
         console.log("Uhoh, you drilled above the ground!")
         lastPoint = null;
       }
