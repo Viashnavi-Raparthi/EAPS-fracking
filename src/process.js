@@ -2,6 +2,7 @@ import { Application, Graphics, Sprite } from 'pixi.js';
 import { initAssets } from './assets.ts';
 
 const HOLE_WIDTH = 15;
+const EXAMPLE_WIDTH = 5;
 
 const colonelSpeeches = [
   "Oh, no! Trust me we’ve got a much better system worked out now. Here, how about I show you how it’s done here. Remember that each step is crucial to the success of the entire operation."
@@ -32,7 +33,9 @@ var oilWell;
 const WELL_POSITION = {x: 115, y: 130};
 
 const layerColors = [0xC5F9FE, 0x8CC341, 0x89613B, 0x774B26, 0x27A8E0, 0x554741, 0x736356, 0xCDAC8D]
-  const layerHeights = [250, 10, 20, 40, 30, 60, 30, 100]
+const layerHeights = [250, 10, 20, 40, 30, 60, 30, 100]
+
+const EXAMPLE_LINE = [{x: 160, y: 260}, {x: 160, y: 400}];
 
 setup()
 
@@ -72,6 +75,7 @@ function buildWell() {
 
   app.stage.addChild(oilWell);
   setupDrilling();
+  drawExampleLine();
 }
 
 function setupDrilling() {
@@ -125,3 +129,20 @@ function setupDrilling() {
       lastPoint = null;
   }
 }
+
+function drawExampleLine() {
+  let prevPoint;
+  let line = new Graphics();
+  line.stroke({width: EXAMPLE_WIDTH, color: 0x9E0D03, cap: 'round'});
+
+  for (let i = 0; i < EXAMPLE_LINE.length - 1; i++) {
+    console.log(i);
+    console.log(EXAMPLE_LINE[i]);
+    console.log(EXAMPLE_LINE[i+1]);
+    line.moveTo(EXAMPLE_LINE[i].x, EXAMPLE_LINE[i].y);
+    line.lineTo(EXAMPLE_LINE[i+1].x, EXAMPLE_LINE[i+1].y);
+
+    app.stage.addChild(line);
+  }
+}
+
