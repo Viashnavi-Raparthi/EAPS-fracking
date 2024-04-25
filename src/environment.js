@@ -9,6 +9,7 @@ const ANIMATION_SPEED = 500;
 door.addEventListener('click', function() {
     if (!door.classList.contains('open')) {
         door.classList.toggle('open');
+        toggleKnocks();
 
         // Create a new dialogue element
         setTimeout(guestResponse, 800);
@@ -68,7 +69,8 @@ function kickoutGuest() {
     door.classList.toggle('open');
     removePreviousDialogue();
     setTimeout(() => {
-        personImage.src = interactiveSpots[dialogueIndex][1]
+        personImage.src = interactiveSpots[dialogueIndex][1];
+        toggleKnocks();
     }, ANIMATION_SPEED);
 }
 
@@ -109,4 +111,11 @@ function displayNextDialogue(dialogueText, isUser = true) {
         newDialogue.style.top = '10%'; // Slide up
         newDialogue.style.opacity = 1; // Fade in
     }, 10); // Delay to ensure the animation works properly
+}
+
+function toggleKnocks() {
+    var knocks = document.querySelectorAll('.knock');
+    knocks.forEach(function(knock) {
+        knock.classList.toggle('active');
+    });
 }
