@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var dialogueContainer = document.getElementById('dialogue-container');
     const donovanSpeech = {
         "intro": "Alright, now that you know how the wells are built, let's start constructing new ones around the US.",
-        "firstWell": "Perfect. We should start making a profit from that well. When the money flows in, just hover over it to collect."
+        "firstWell": "Perfect. We should start making a profit from that well. When the money flows in, just hover over it to collect.",
+        "secondWell": "By doing all of this, think about all of the smaller econimies we are stimulating. We're creating jobs for the people at these sites and creating more jobs because of the construction and waste management we need.",
+        "thirdWell": "With all of these wells, we can help the US become more energy independent. This means that we can play a role in reducing the dependency on foreign oil imports. Also, all of the energy independence benefits will trickle down into the markets and industries in the US. This revenue from taxes and lease payments can be used as funding for school districts and other big projects. Look at the great work we're doing!"
     }
 
     // Array of coordinates for building buttons
@@ -102,6 +104,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function checkSpeechConditions() {
         if (ownedWells.length == 1) {
             donovanSpeak("firstWell");
+        }
+
+        if (ownedWells.length == 2) {
+            donovanSpeak("secondWell");
+        }
+
+        if (ownedWells.length == 3) {
+            donovanSpeak("thirdWell");
         }
     }
 
