@@ -31,24 +31,28 @@ var buildButton;
 const BUILD_BUTTON_POSITION = {x: 100, y: 180};
 var oilWell;
 const WELL_POSITION = {x: 115, y: 130};
+var exampleLine;
 
 const layerColors = [0xC5F9FE, 0x8CC341, 0x89613B, 0x774B26, 0x27A8E0, 0x554741, 0x736356, 0xCDAC8D]
 const layerHeights = [250, 10, 20, 40, 30, 60, 30, 100]
 
-const EXAMPLE_LINE = [{x: 160, y: 260}, {x: 160, y: 400}];
+const EXAMPLE_LINE = [{x: 160, y: 260}, {x: 160, y: 400}, { x: 161.37, y: 415.63 }, { x: 165.43, y: 430.78 }, { x: 172.06, y: 445.00 }, { x: 181.06, y: 457.85 }, { x: 192.15, y: 468.94 }, { x: 205.00, y: 477.94 }, { x: 219.22, y: 484.57 }, { x: 234.37, y: 488.63 }, {x: 250, y: 490}, {x: 600, y: 490}];
 
-setup()
+setup();
 
 function setup() {
+  app.stage.eventMode = 'static';
+  app.stage.hitArea = app.screen;
+
   // Define the width and height of each layer
   const layerWidth = app.screen.width;
 
   let depth = 0;
+  let layer = new Graphics();
   // Loop through and draw the layers of dirt and rock
   for (let i = 0; i < layerColors.length; i++) {
-    let layer = new Graphics()
-      .rect(0, depth, layerWidth, layerHeights[i])
-      .fill(layerColors[i]);
+    layer.rect(0, depth, layerWidth, layerHeights[i]);
+    layer.fill(layerColors[i]);
     depth += layerHeights[i];
     app.stage.addChild(layer);
   }
@@ -83,8 +87,6 @@ function setupDrilling() {
   let graphics = new Graphics();
   
   //Set up mouse events
-  app.stage.eventMode = 'static';
-  app.stage.hitArea = app.screen;
   app.stage.on('pointerdown', onPointerDown);
   app.stage.on('pointermove', onPointerMove);
   app.stage.on('pointerup', onPointerUp);
@@ -110,16 +112,14 @@ function setupDrilling() {
         lastPoint = null;
       }
 
-      graphics.stroke({width: HOLE_WIDTH, color: 0x3B240B, cap: 'round'}); // Dark brown color
       if (lastPoint == null) {
         lastPoint = newPoint;
       }
       graphics.moveTo(lastPoint.x, lastPoint.y);
       graphics.lineTo(newPoint.x, newPoint.y);
+      graphics.stroke({width: HOLE_WIDTH, color: 0x3B240B, cap: 'round'}); // Dark brown color
 
       app.stage.addChild(graphics);
-
-      //graphics = new PIXI.Graphics();
       
       lastPoint = newPoint;
   }
@@ -131,18 +131,15 @@ function setupDrilling() {
 }
 
 function drawExampleLine() {
-  let prevPoint;
-  let line = new Graphics();
-  line.stroke({width: EXAMPLE_WIDTH, color: 0x9E0D03, cap: 'round'});
+  let exampleLine = new Graphics();
 
   for (let i = 0; i < EXAMPLE_LINE.length - 1; i++) {
-    console.log(i);
-    console.log(EXAMPLE_LINE[i]);
-    console.log(EXAMPLE_LINE[i+1]);
-    line.moveTo(EXAMPLE_LINE[i].x, EXAMPLE_LINE[i].y);
-    line.lineTo(EXAMPLE_LINE[i+1].x, EXAMPLE_LINE[i+1].y);
+    exampleLine.moveTo(EXAMPLE_LINE[i].x, EXAMPLE_LINE[i].y);
+    exampleLine.lineTo(EXAMPLE_LINE[i+1].x, EXAMPLE_LINE[i+1].y);
+    exampleLine.stroke({width: EXAMPLE_WIDTH, color: 0x9E0D03, cap: 'round'});
 
-    app.stage.addChild(line);
+    console.log(exampleLine);
+    app.stage.addChild(exampleLine);
   }
 }
 
