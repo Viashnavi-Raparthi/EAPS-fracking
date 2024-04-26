@@ -122,6 +122,12 @@ body {
     text-align: center;
 }
 
+.marker:nth-child(even) .event {
+    position: absolute;
+    transform: translateY(-100%);
+    top: -10px;
+}
+
 .circle {
     width: 20px;
     height: 20px;
@@ -132,6 +138,7 @@ body {
 .event {
     display: flex;
     flex-direction: column;
+    width: 50px;
 }
 
 .year {

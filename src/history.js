@@ -1,5 +1,5 @@
-const START_DATE = 1850
-const END_DATE = 2000
+const START_DATE = 1860
+const END_DATE = 2030
 
 const colonelSpeeches = [
     "In the mid nineteenth century, a lot of us engineers and lot tried to figure out how we were going to get more gas",
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // After animation, update event information and slide in the new event details
             setTimeout(() => {
                 eventHeader.textContent = eventName;
-                eventImage.src = `/raw-assets/images{m}{tps}/event_${year}.jpg`;
+                eventImage.src = this.dataset.image;
                 eventDescription.textContent = description;
 
                 // Add animate-in class to slide in the new event details
