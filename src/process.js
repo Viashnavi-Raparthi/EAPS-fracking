@@ -7,21 +7,17 @@ const PERFORATION_WIDTH = 5;
 const DRILL_COLOR = 0x3B240B;
 const WATER_COLOR = 0x00819E;
 
-const colonelSpeeches = [
-  "Oh, no! Trust me we’ve got a much better system worked out now. Here, how about I show you how it’s done here. Remember that each step is crucial to the success of the entire operation."
-  ];
+const TEXT_SPEED = 30;
   
-  const userSpeeches = [
-  "Wait, but how does this whole process work? I mean we’re surely not just still throwing explosives down into a well, right",
-  "Okay!"
-  ];
-  
-  const textBlobs = [
-  "Drill a wellbore vertically into the Earth. This will go through the layers of sediment and rock until it reaches our targeted shale formation. We can also extend our wellbore horizontally and make it go through the shale reservoir to help maximize the amount of contact",
-  "Now we need to mix some fracking fluid.",
-  "Grab this bucket and add water, sand, and some proppant.",
-  "Since the fracking fluid has sand, the sand props the fractures open. The sand here serves as a proppant, allowing the hydrocarbons to flow more freely to the surface. The chemical additives in the fluid also help keep the process efficient by reducing friction and preventing bacterial growth within the wellbore"
-  ];
+const donovanSpeeches = [
+"Great, now that you understand the history, let's actually build a well. Start by pressing the build button.",
+"Following the guideline, drag to drill a wellbore into the Earth. This will go through the layers of sediment and rock until it reaches our targeted shale formation. We can also extend our wellbore horizontally and make it go through the shale reservoir to help maximize the amount of contact.",
+"If you're happy with the drill hole, press continue. Otherwise, you can retry your hole to match the guidelines again.",
+"Now we need to add some casing, made with both concrete and metal to protect the fracking fluid from seeping into other layers of sediment, and to prevent the oil and gas we collect from leaking out. Hold the fill button until the casing is in.",
+"Time to perforate the shale reservoir. We'll lay some explosives to add holes into the shale.",
+"Lastly, we need to add our highly pressurized fracking fluid into the drill hole to fracture the shale! The fluid is includes water, sand, and chemicals. The sand here serves as a proppant, keeping the cracks open, allowing the hydrocarbons to flow more freely to the surface. The chemical additives in the fluid also help keep the process efficient by reducing friction and preventing bacterial growth within the wellbore.",
+"Perfect! We did it, all those fractures should release the oil and gas trapped in the shale and the pressure will push oil, gas, and flowback water back to the surface."
+];
   
 var canvasContainer = document.getElementById("canvas-container");
 
@@ -43,6 +39,13 @@ var fillBtn;
 var perforateBtn;
 var fillProgress;
 let fillIntervalId;
+var textTimeoutId;
+
+var casingGraphics;
+var internalHoleGraphics;
+var waterGraphics;
+var perforationGraphics = [];
+var crackGraphics;
 
 const RETRY_BUTTON_POSITION = {x: 300, y: 100};
 const CONTINUE_BUTTON_POSITION = {x: 300, y: 160};
@@ -78,6 +81,7 @@ function setup() {
   buildButton.on('pointerdown', buildWell);
 
   app.stage.addChild(buildButton);
+  displaySpeech(donovanSpeeches[0]);
 }
 
 function drawLayers(startAt = 0) {
@@ -106,11 +110,14 @@ function buildWell() {
   oilWell.on('pointerdown', buildWell);
 
   app.stage.addChild(oilWell);
+  exampleLine = new Graphics();
   setupDrilling();
-  drawLine(EXAMPLE_LINE, EXAMPLE_WIDTH, 0x9E0D03);
+  drawLine(exampleLine, EXAMPLE_LINE, EXAMPLE_WIDTH, 0x9E0D03);
 }
 
 function setupDrilling() {
+  displaySpeech(donovanSpeeches[1]);
+
   // Create a graphics object for drawing lines
   drillHole = new Graphics();
   
@@ -178,7 +185,7 @@ function showContinue() {
   continueBtn.position = CONTINUE_BUTTON_POSITION;
   continueBtn.eventMode = 'static';
   continueBtn.cursor = 'pointer';
-  continueBtn.on('pointerdown', continueFilling);
+  continueBtn.on('pointerdown', setupCasing);
 
   app.stage.addChild(continueBtn);
 
@@ -191,6 +198,8 @@ function showContinue() {
   retryBtn.on('pointerdown', retryDrilling);
 
   app.stage.addChild(retryBtn);
+
+  displaySpeech(donovanSpeeches[2]);
 }
 
 function retryDrilling() {
@@ -201,7 +210,7 @@ function retryDrilling() {
   app.stage.removeChild(retryBtn);
 }
 
-function continueFilling() {
+function setupCasing() {
   app.stage.removeChild(continueBtn);
   app.stage.removeChild(retryBtn);
 
@@ -211,28 +220,38 @@ function continueFilling() {
   fillBtn.position = RETRY_BUTTON_POSITION;
   fillBtn.eventMode = 'static';
   fillBtn.cursor = 'pointer';
-  fillBtn.on('pointerdown', startFilling);
+  fillBtn.on('pointerdown', startCasing);
   fillBtn.on('pointerup', endFilling);
+
+  casingGraphics = new Graphics();
+  internalHoleGraphics = new Graphics();
 
   app.stage.addChild(fillBtn);
   fillProgress = 0;
+
+  displaySpeech(donovanSpeeches[3]);
 }
 
-function startFilling() {
-  fillProgress += 5;
-  drawLine(drillLine.slice(0, fillProgress), HOLE_WIDTH, 0xC9C9C9);
-  drawLine(drillLine, HOLE_WIDTH - 8, DRILL_COLOR);
+function startCasing() {
+  fillIntervalId = setInterval(fillCasing, 1);
+}
+
+function fillCasing() {
+  fillProgress += 1;
+  casingGraphics.clear();
+  internalHoleGraphics.clear();
+
+  drawLine(casingGraphics, drillLine.slice(0, fillProgress), HOLE_WIDTH, 0xC9C9C9);
+  drawLine(internalHoleGraphics, drillLine, HOLE_WIDTH - 8, DRILL_COLOR);
 
   if (fillProgress > drillLine.length) {
-    clearTimeout(fillIntervalId);
+    clearInterval(fillIntervalId);
     setupExplosion();
-  } else {
-    fillIntervalId = setTimeout(startFilling, 1);
   }
 }
 
 function endFilling() {
-  clearTimeout(fillIntervalId);
+  clearInterval(fillIntervalId);
 }
 
 function setupExplosion() {
@@ -247,15 +266,19 @@ function setupExplosion() {
   perforateBtn.on('pointerdown', perforate);
 
   app.stage.addChild(perforateBtn);
+
+  displaySpeech(donovanSpeeches[4]);
 }
 
 function perforate() {
   for (let i = 0; i < PERFORATIONS.length; i++) {
-    drawLine(PERFORATIONS[i], PERFORATION_WIDTH, DRILL_COLOR);
+    perforationGraphics[i] = new Graphics();
+    drawLine(perforationGraphics[i], PERFORATIONS[i], PERFORATION_WIDTH, DRILL_COLOR);
     filledPerforations[i] = false;
   }
   app.stage.removeChild(perforateBtn);
   setupWater();
+  displaySpeech(donovanSpeeches[5]);
 }
 
 function setupWater() {
@@ -265,31 +288,43 @@ function setupWater() {
   fillBtn.position = RETRY_BUTTON_POSITION;
   fillBtn.eventMode = 'static';
   fillBtn.cursor = 'pointer';
-  fillBtn.on('pointerdown', fillWater);
+  fillBtn.on('pointerdown', startWater);
 
   app.stage.addChild(fillBtn);
   fillProgress = 0;
+
+  waterGraphics = new Graphics();
+  crackGraphics = new Graphics();
+}
+
+function startWater() {
+  app.stage.removeChild(fillBtn);
+  if (fillProgress <= 0) {
+    fillIntervalId = setInterval(fillWater, 1);
+  }
 }
 
 function fillWater() {
-  fillProgress += 3;
-  drawLine(drillLine.slice(0, fillProgress), HOLE_WIDTH - 8, WATER_COLOR);
+  fillProgress += 2;
+
+  waterGraphics.clear();
+  drawLine(waterGraphics, drillLine.slice(0, fillProgress), HOLE_WIDTH - 8, WATER_COLOR);
   fillProgress = Math.min(fillProgress, drillLine.length - 1)
 
   for (let i = 0; i < PERFORATIONS.length; i++) {
     let line = PERFORATIONS[i];
     if (drillLine[fillProgress].x > line[0].x && !filledPerforations[i]) {
-      drawLine(line, PERFORATION_WIDTH, WATER_COLOR);
+      perforationGraphics[i].clear();
+      drawLine(perforationGraphics[i], PERFORATIONS[i], PERFORATION_WIDTH, WATER_COLOR);
       createCrackedEffect(line[0], 5, 10, 20, 4, WATER_COLOR);
       createCrackedEffect(line[1], 5, 10, 20, 4, WATER_COLOR);
       filledPerforations[i] = true;
     }
   };
 
-  if (fillProgress > drillLine.length) {
-    clearTimeout(fillIntervalId);
-  } else {
-    fillIntervalId = setTimeout(fillWater, 1);
+  if (fillProgress >= drillLine.length-1) {
+    finishWater();
+    clearInterval(fillIntervalId);
   }
 }
 
@@ -302,20 +337,41 @@ function createCrackedEffect(origin, numLines, minLength, maxLength, lineWidth, 
     const endY = origin.y + Math.sin(angle) * length;
 
     // Draw the line
-    drawLine([origin, {x: endX, y: endY}], lineWidth, color);
+    drawLine(crackGraphics, [origin, {x: endX, y: endY}], lineWidth, color);
   }
 }
 
-function drawLine(linePositions, width, color) {
-  let exampleLine = new Graphics();
+function finishWater() {
+  console.log("HETHHOTNHUENHO");
+  displaySpeech(donovanSpeeches[6]);
+  console.log("i");
+}
 
+function drawLine(graphics, linePositions, width, color) {
   for (let i = 0; i < linePositions.length - 1; i++) {
-    exampleLine.moveTo(linePositions[i].x, linePositions[i].y);
-    exampleLine.lineTo(linePositions[i+1].x, linePositions[i+1].y);
-    exampleLine.stroke({width: width, color: color, cap: 'round'});
+    graphics.moveTo(linePositions[i].x, linePositions[i].y);
+    graphics.lineTo(linePositions[i+1].x, linePositions[i+1].y);
+    graphics.stroke({width: width, color: color, cap: 'round'});
 
-    console.log(exampleLine);
-    app.stage.addChild(exampleLine);
+    app.stage.addChild(graphics);
   }
+}
+
+function displaySpeech(speechText) {
+  // Start revealing the text one character at a time
+  clearInterval(textTimeoutId);
+
+  dialogueText.textContent = "";
+  let index = 0;
+  const revealText = () => {
+    if (index < speechText.length) {
+      dialogueText.textContent += speechText[index];
+      index++;
+      textTimeoutId = setTimeout(revealText, TEXT_SPEED); // Adjust the delay between characters (in milliseconds)
+    }
+  };
+
+  // Call revealText function to start revealing the text
+  revealText();
 }
 
