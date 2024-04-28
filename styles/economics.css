@@ -1,69 +1,73 @@
-body, html {
+body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
 }
 
 #container {
-    position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 #header-container {
-    position: relative;
     display: flex;
-    align-items: center; /* Align items vertically */
-    justify-content: space-between; /* Space items horizontally */
-    padding: 10px; /* Add padding for spacing */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #profile-container {
-    margin: 10px;
+    flex: 0 0 auto;
+    margin: 0 20px;
 }
 
 #profile-picture {
     width: 100px;
     height: 100px;
+    border-radius: 50%;
 }
 
 #dialogue-container {
     position: relative;
-    flex: 1;
-    height: 100px;
+    flex: 1 1 auto;
 }
 
 #money-counter {
-    margin: 10px; /* Add margin to separate from other elements */
+    flex: 0 0 auto;
+    margin: 0 20px;
 }
 
-.dialogue {
-    position: absolute;
-    top: -100px; /* Initially above the screen */
+#dialogue {
     left: 0;
     padding: 20px;
     background-color: #007bff;
     color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    transition: top 0.5s ease, opacity 0.5s ease; /* Transition for sliding in and fading in */
-    opacity: 0; /* Initially invisible */
     font-family: "Delius", cursive;
     font-weight: 400;
     font-style: normal;
 }
 
-.dialogue.active {
-    top: 0; /* Slide in from top */
-    opacity: 1; /* Fade in */
-}
-
 #map-container {
+    margin-top: 20px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    height: 70vh;
 }
 
 #us-map {
+    position: relative;
     max-width: 100%;
     max-height: 100%;
 }
@@ -113,4 +117,22 @@ body, html {
     max-height: 5%;
     position: absolute;
     transform: translate(-50%, -50%);
+}
+
+#continue-button {
+    display: none;
+    background-color: #ffc107;
+    padding: 5px 20px;
+    margin: 20px;
+    border-radius: 5px;
+    text-decoration: none; /* Remove default link underline */
+    font-family: 'Koulen', sans-serif;
+    color: white; /* Change link color */
+    text-decoration: none; /* Remove default link underline */
+    pointer-events: auto;
+    font-size: 24px;
+    letter-spacing: 2px;
+    width: 280px;
+    text-align: center;
+    align-self: center;
 }

@@ -342,9 +342,8 @@ function createCrackedEffect(origin, numLines, minLength, maxLength, lineWidth, 
 }
 
 function finishWater() {
-  console.log("HETHHOTNHUENHO");
   displaySpeech(donovanSpeeches[6]);
-  console.log("i");
+  document.getElementById("continue-button").style.display = 'block';
 }
 
 function drawLine(graphics, linePositions, width, color) {

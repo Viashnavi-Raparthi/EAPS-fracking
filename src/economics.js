@@ -10,10 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var dialogueContainer = document.getElementById('dialogue-container');
     const donovanSpeech = {
         "intro": "Alright, now that you know how the wells are built, let's start constructing new ones around the US.",
-        "firstWell": "Perfect. We should start making a profit from that well. When the money flows in, just hover over it to collect.",
+        "firstWell": "Perfect. We should start making a profit from that well. When the money flows in, just hover over it to collect. You'll need at least $10 M to build another.",
         "secondWell": "By doing all of this, think about all of the smaller econimies we are stimulating. We're creating jobs for the people at these sites and creating more jobs because of the construction and waste management we need.",
         "thirdWell": "With all of these wells, we can help the US become more energy independent. This means that we can play a role in reducing the dependency on foreign oil imports. Also, all of the energy independence benefits will trickle down into the markets and industries in the US. This revenue from taxes and lease payments can be used as funding for school districts and other big projects. Look at the great work we're doing!"
     }
+    const TEXT_SPEED = 30;
+
+    var dialogueText = document.getElementById('dialogue');
+    var textTimeoutId;
 
     // Array of coordinates for building buttons
     var buttonCoordinates = [
@@ -24,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     var ownedWells = [];
-    var currentMoney = 1000; // Initial money amount
+    var currentMoney = 10; // Initial money amount
 
     // Set the dimensions of buttons and buildings containers based on the image size
     function updateContainerDimensions() {
@@ -51,6 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Add click event listener to each button
         button.addEventListener('click', function() {
+            if (currentMoney < 10) {
+                return;
+            }
+
             button.remove();
 
             var type = buildingTypes[0];
@@ -73,8 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 building.style.top = coord.y + '%'; // Move to final position
                 building.style.opacity = 1; // Fade in
 
-                currentMoney -= 100;
-                moneyCounter.textContent = 'Money: $' + currentMoney; // Update money counter text
+                currentMoney -= 10;
+                moneyCounter.textContent = 'Money: $' + currentMoney + " M"; // Update money counter text
 
                 // Spawn cash image every X seconds
                 setInterval(function() {
@@ -95,8 +103,8 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transition = 'top 0.5s, opacity 0.5s';
             this.style.top = coord.y - 10 + '%';
             this.style.opacity = 0;
-            currentMoney += 100; // Increase money by $100
-            moneyCounter.textContent = 'Money: $' + currentMoney;
+            currentMoney += 1; // Increase money by $100
+            moneyCounter.textContent = 'Money: $' + currentMoney + " M";
         });
         buttonsContainer.appendChild(cash);
     }
@@ -112,28 +120,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (ownedWells.length == 3) {
             donovanSpeak("thirdWell");
+            document.getElementById("continue-button").style.display = 'block';
         }
     }
 
     function donovanSpeak(speech) {
-        var dialogue = document.createElement('div');
-        dialogue.classList.add('dialogue');
-        dialogue.textContent = donovanSpeech[speech];
-        dialogueContainer.appendChild(dialogue);
+        speechText = donovanSpeech[speech];
 
-        // Remove the active class from existing dialogues
-        var activeDialogues = document.querySelectorAll('.dialogue.active');
-        activeDialogues.forEach(function(dialogue) {
-            dialogue.classList.remove('active');
-            setTimeout(function() {
-                dialogue.remove(); // Remove the dialogue after transition
-            }, 500); // Wait for transition to complete
-        });
+        clearInterval(textTimeoutId);
 
-        // Add active class to the new dialogue to slide it in
-        setTimeout(function() {
-            dialogue.classList.add('active');
-        }, 50); // Delay to ensure transition works properly
+        dialogueText.textContent = "";
+        let index = 0;
+        
+        const revealText = () => {
+            if (index < speechText.length) {
+                dialogueText.textContent += speechText[index];
+                index++;
+            }
+        };
+
+        textTimeoutId = setInterval(revealText, TEXT_SPEED); // Adjust the delay between characters (in milliseconds)
     }
 
     donovanSpeak("intro");
